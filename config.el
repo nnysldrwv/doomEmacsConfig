@@ -148,3 +148,20 @@
            (equal window-system 'w32))
   (defun server-ensure-safe-dir (dir) "Noop" t)) ; Suppress error "directory; ~/.emacs.d/server is unsafe" on windows.
 (server-start)
+
+
+;;org快捷键修改
+  (after! org
+  (bind-keys :map org-mode-map
+         ("C-c a" . org-agenda)
+         ("C-c b" . org-switchb)
+         ("C-c x" . org-capture)))
+;;org-roam快捷键修改
+  (after! org-roam
+  (bind-keys :map org-roam-mode-map
+        ("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ("C-c n j" . org-roam-dailies-capture-today)))
