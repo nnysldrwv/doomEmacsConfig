@@ -150,18 +150,31 @@
 (server-start)
 
 
-;;org快捷键修改
-  (after! org
-  (bind-keys :map org-mode-map
-         ("C-c a" . org-agenda)
-         ("C-c b" . org-switchb)
-         ("C-c x" . org-capture)))
-;;org-roam快捷键修改
-  (after! org-roam
-  (bind-keys :map org-roam-mode-map
-        ("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ("C-c n j" . org-roam-dailies-capture-today)))
+;; (map!    "C-c a" #'org-agenda
+;;          "C-c b" #'org-switchb
+;;          "C-c x" #'org-capture
+;;  )
+
+;; (map!    "C-c n l" #'org-roam-buffer-toggle
+;;          "C-c n f" #'org-roam-node-find
+;;          "C-c n g" #'org-roam-graph
+;;          "C-c n i" #'org-roam-node-insert
+;;          "C-c n c" #'org-roam-capture
+;;          "C-c n j" #'org-roam-dailies-capture-today
+;;  )
+
+
+;; (use-package! rime
+;;   :custom
+;;   ;; (rime-inline-ascii-trigger 'shift-r)
+;;   (default-input-method "rime")
+;;   (rime-show-candidate 'posframe))
+
+;; ;; replace this dir with your own path
+;; (setq rime-user-data-dir "~/.config/rime")
+
+;; (setq rime-posframe-properties
+;;       (list :background-color "#333333"
+;;             ;; :foreground-color "#dcdccc"
+;;             :font "Sarasa Mono SC Nerd-14"
+;;             :internal-border-width 10))
