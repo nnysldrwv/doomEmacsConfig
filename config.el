@@ -53,7 +53,7 @@
                              (width . 100)
                              (height . 45)))
 
-(setq frame-title-format "生产知识")
+(setq frame-title-format "Sean")
 (menu-bar-mode -1) ;; minimal chrome
 (tool-bar-mode -1) ;; no toolbar
 (scroll-bar-mode -1) ;; disable scroll bars
@@ -83,7 +83,7 @@
       scroll-step 1)
 
 ;; for night
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-zenburn)
 
 ;; another awesome night theme
 ;; (setq doom-theme 'doom-monokai-spectrum)
