@@ -83,7 +83,7 @@
       scroll-step 1)
 
 ;; for night
-(setq doom-theme 'doom-ayu-dark)
+(setq doom-theme 'doom-one)
 
 ;; another awesome night theme
 ;; (setq doom-theme 'doom-monokai-spectrum)
@@ -105,10 +105,10 @@
 ;;       doom-variable-pitch-font (font-spec :family "PingFang SC" :weight 'extra-bold))
 
 ;; Plan C: 中英文仓耳今楷
-(setq doom-font (font-spec :family "LXGW Neo Xihei" :size 22)
+(setq doom-font (font-spec :family "TsangerJinKai03 W03" :size 24)
       doom-serif-font doom-font
-      doom-symbol-font (font-spec :family "LXGW Neo Xihei")
-      doom-variable-pitch-font (font-spec :family "LXGW Neo Xihei"))
+      doom-symbol-font (font-spec :family "TsangerJinKai03 W03")
+      doom-variable-pitch-font (font-spec :family "TsangerJinKai03 W03"))
 
 ;; 如果不把这玩意设置为 nil, 会默认去用 fontset-default 来展示, 配置无效
 (setq use-default-font-for-symbols nil)
@@ -337,17 +337,17 @@
         calendar-holidays nil
         org-agenda-include-diary t))
 
-;; (after! org
-;;   (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
-;;   (setq org-plantuml-jar-path (expand-file-name "~/org/private/plantuml.jar"))
-;;   (setq plantuml-default-exec-mode 'jar)
-;;   (setq org-hide-block-startup t)
-;;   (org-babel-do-load-languages
-;;    'org-babel-load-languages
-;;    '((emacs-lisp . t)
-;;      (shell . t)
-;;      (plantuml . t)
-;;      (gnuplot . t))))
+(after! org
+  (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+  (setq org-plantuml-jar-path (expand-file-name "~/org/private/plantuml.jar"))
+  (setq plantuml-default-exec-mode 'jar)
+  (setq org-hide-block-startup t)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (shell . t)
+     (plantuml . t)
+     (gnuplot . t))))
 
 (setq-default prettify-symbols-alist '(("#+title:" . "✍")
                                        ("#+author:" . "👨")
@@ -604,20 +604,18 @@ Assume point is at first MARK."
                       "#+title: ${title}\n\n ")
            :unnarrowed t))))
 
-;; (after! plantuml-mode
-;;   (setq plantuml-jar-path (expand-file-name "~/Documents/emacs/org/private/plantuml.jar"))
-;;   (setq plantuml-default-exec-mode 'jar))
-
-;; (setq yas-snippet-dirs '("~/Documents/emacs/ljg-snippets"  +snippets-dir doom-snippets-dir +file-templates-dir))
+(after! plantuml-mode
+  (setq plantuml-jar-path (expand-file-name "~/org/private/plantuml.jar"))
+  (setq plantuml-default-exec-mode 'jar))
 
 (use-package! ace-pinyin
   :config
   (ace-pinyin-global-mode +1))
 
-;; (add-to-list 'load-path "~/Documents/emacs/local-packages/blink-search")
+(add-to-list 'load-path "~/.config/emacs/local-packages/blink-search")
 
-;; (require 'blink-search)
-;; (global-set-key (kbd "C-s") 'blink-search)
+(require 'blink-search)
+(global-set-key (kbd "C-S-s") 'blink-search)
 
 (use-package! gptel
   :config
@@ -692,7 +690,7 @@ Assume point is at first MARK."
 (use-package! org-download
   :defer nil
   :custom
-  (org-download-image-dir "~/org/images")
+  (org-download-image-dir "~//org/roam/images")
   (org-image-actual-width '(400))
   (org-download-heading-lvl nil)
   (org-download-timestamp "")
@@ -732,24 +730,6 @@ Assume point is at first MARK."
   (global-pangu-spacing-mode 1)
   ;; 在中英文符号之间, 真正地插入空格
   (setq pangu-spacing-real-insert-separtor t))
-
-;; (use-package! rime
-;;   :custom
-;;   (default-input-method "rime")
-;;   ;; FIXME
-;;   (rime-librime-root "~/Documents/emacs/depend/librime/dist")
-;;   (rime-emacs-module-header-root "/opt/homebrew/Cellar/emacs-plus@29/29.2/include")
-;;   ;; (rime-emacs-module-header-root "/usr/local/opt/emacs-mac/include")
-;;   :config
-;;   (define-key rime-mode-map (kbd "C-i") 'rime-force-enable)
-;;   (setq rime-disable-predicates
-;;         '(rime-predicate-evil-mode-p
-;;           rime-predicate-after-alphabet-char-p
-;;           rime-predicate-current-input-punctuation-p
-;;           rime-predicate-current-uppercase-letter-p
-;;           rime-predicate-punctuation-line-begin-p))
-;;   ;; FIXME
-;;   (setq rime-user-data-dir "~/Library/Rime"))
 
 (use-package! telega
   :hook

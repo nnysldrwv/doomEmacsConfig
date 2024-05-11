@@ -288,7 +288,7 @@
 *** 配置主题
 #+begin_src emacs-lisp :tangle "~/.config/doom/config.el"
 ;; for night
-(setq doom-theme 'doom-ayu-dark)
+(setq doom-theme 'doom-one)
 
 ;; another awesome night theme
 ;; (setq doom-theme 'doom-monokai-spectrum)
@@ -312,11 +312,11 @@
 ;;       doom-symbol-font (font-spec :family "PingFang SC")
 ;;       doom-variable-pitch-font (font-spec :family "PingFang SC" :weight 'extra-bold))
 
-;; Plan C: 中英文仓耳今楷TsangerJinKai03
-(setq doom-font (font-spec :family "LXGW Neo Xihei" :size 22)
+;; Plan C: 中英文仓耳今楷
+(setq doom-font (font-spec :family "TsangerJinKai03 W03" :size 24)
       doom-serif-font doom-font
-      doom-symbol-font (font-spec :family "LXGW Neo Xihei")
-      doom-variable-pitch-font (font-spec :family "LXGW Neo Xihei"))
+      doom-symbol-font (font-spec :family "TsangerJinKai03 W03")
+      doom-variable-pitch-font (font-spec :family "TsangerJinKai03 W03"))
 
 ;; 如果不把这玩意设置为 nil, 会默认去用 fontset-default 来展示, 配置无效
 (setq use-default-font-for-symbols nil)
@@ -870,15 +870,15 @@ Assume point is at first MARK."
   (ace-pinyin-global-mode +1))
 
 #+end_src
-# **** blink-search
-# #+begin_src emacs-lisp :tangle "~/.config/doom/config.el"
+**** blink-search
+#+begin_src emacs-lisp :tangle "~/.config/doom/config.el"
 
-# (add-to-list 'load-path "~/Documents/emacs/local-packages/blink-search")
+(add-to-list 'load-path "~/.config/emacs/local-packages/blink-search")
 
-# (require 'blink-search)
-# (global-set-key (kbd "C-s") 'blink-search)
+(require 'blink-search)
+(global-set-key (kbd "C-S-s") 'blink-search)
 
-# #+end_src
+#+end_src
 **** gptel
 #+begin_src emacs-lisp :tangle "~/.config/doom/config.el"
 (use-package! gptel
