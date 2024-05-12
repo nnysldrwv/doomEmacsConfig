@@ -815,12 +815,12 @@ Assume point is at first MARK."
   (setq elfeed-search-title-max-width 80    ; Maximum titles width
         elfeed-search-title-min-width 40    ; Minimum titles width
         elfeed-search-trailing-width 24     ; Space reserved for feed & tag
-        elfeed-search-filter                ; Default filter
         elfeed-curl-extra-arguments '("-xhttp://127.0.0.1:2080")
          ;; elfeed-curl-extra-arguments '("--proxy" "socks5://127.0.0.1:7890"
          ;;                                                "--retry" "3"
          ;;                                                "--insecure"))
         elfeed-curl-timeout 60
+        elfeed-search-filter                ; Default filter
         "@1-weeks-ago +unread")
 
   (defvar elfeed-search-sort-function)
