@@ -16,7 +16,7 @@
         +all
         +defaults)        ; tame sudden yet inevitable temporary windows
        unicode
-       zen                ; distraction-free coding or writing
+       ;;zen                ; distraction-free coding or writing
 
        :editor
        ;(evil +everywhere) ; come to the dark side, we have cookies

@@ -5,8 +5,8 @@
                          ("melpa" . "http://elpa.emacs-china.org/melpa/")))
 
 ;; 个人信息
-(setq user-full-name "lijigang"
-      user-mail-address "i@lijigang.com")
+(setq user-full-name "Sean Yuan"
+      user-mail-address "yuan_xiang@outlook.com")
 
 ;; 通过iCloud 自动同步Documents 目录, 多台电脑可以无缝迁移使用
 (setq org-directory "~/org/")
@@ -572,6 +572,11 @@ Assume point is at first MARK."
         elfeed-search-title-min-width 40    ; Minimum titles width
         elfeed-search-trailing-width 24     ; Space reserved for feed & tag
         elfeed-search-filter                ; Default filter
+        elfeed-curl-extra-arguments '("-xhttp://127.0.0.1:2080")
+         ;; elfeed-curl-extra-arguments '("--proxy" "socks5://127.0.0.1:7890"
+         ;;                                                "--retry" "3"
+         ;;                                                "--insecure"))
+        elfeed-curl-timeout 60
         "@1-weeks-ago +unread")
 
   (defvar elfeed-search-sort-function)
