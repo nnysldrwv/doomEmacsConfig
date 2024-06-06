@@ -127,7 +127,7 @@
 ;; 指定启动时的窗口位置和大小
 (setq initial-frame-alist '((top . 45)
                              (left . 1200)
-                             (width . 200)
+                             (width . 150)
                              (height . 45)))
 
 (setq frame-title-format "Sean")
