@@ -81,12 +81,12 @@
 
 
 ;;elfeed配置
-(after! elfeed
-  (setq elfeed-search-filter "@1-month-ago +unread")
-  (setq rmh-elfeed-org-files '("~/org/roam/elfeed.org")))
-(add-hook! 'elfeed-search-mode-hook #'elfeed-update)
-;; 关闭Doom rss 切割图片的功能, 展示完整图片吧
-(setq +rss-enable-sliced-images nil)
+;;(after! elfeed
+;;  (setq elfeed-search-filter "@1-month-ago +unread")
+;;  (setq rmh-elfeed-org-files '("~/org/elfeed.org")))
+;;(add-hook! 'elfeed-search-mode-hook #'elfeed-update)
+;;;; 关闭Doom rss 切割图片的功能, 展示完整图片吧
+;;(setq +rss-enable-sliced-images nil)
 
 
 ;;emacs系统设置
@@ -145,7 +145,8 @@
       scroll-step 1)
 
 ;;;快捷键设置
-(map! "C-x w" #'elfeed
+(map!
+ ;;"C-x w" #'elfeed
       "<f2>" #'+doom-dashboard/open
 ;;       "C-c n l" #'org-roam-buffer-toggle
 ;;       "C-c n f" #'org-roam-node-find
