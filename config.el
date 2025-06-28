@@ -40,7 +40,10 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(after! org
+  (setq org-directory "~/org/")
+  (setq org-todo-keywords '((sequence "TODO" "DOING" "DONE")))
+  )
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
@@ -122,13 +125,23 @@
 
 ;; (setq display-line-numbers-type nil)
 
-
+;; 保存会话窗口
+;; Automatically save and restore sessions
+(setq desktop-dirname             "~/.emacs.d/desktop/"
+      desktop-base-file-name      "emacs.desktop"
+      desktop-base-lock-name      "lock"
+      desktop-path                (list desktop-dirname)
+      desktop-save                t
+      desktop-files-not-to-save   "^$" ;reload tramp paths
+      desktop-load-locked-desktop nil
+      desktop-auto-save-timeout   30)
+(desktop-save-mode 1)
 
 ;; 指定启动时的窗口位置和大小
-(setq initial-frame-alist '((top . 45)
-                             (left . 1200)
-                             (width . 150)
-                             (height . 45)))
+;;(setq initial-frame-alist '((top . 45)
+;;                             (left . 1200)
+;;                             (width . 150)
+;;                             (height . 45)))
 
 (setq frame-title-format "Sean")
 ;; (menu-bar-mode -1) ;; minimal chrome
