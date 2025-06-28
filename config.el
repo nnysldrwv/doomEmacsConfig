@@ -103,18 +103,25 @@
       )
 
 ;;编码设置
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(setq default-buffer-file-coding-system 'utf-8)
+;; (prefer-coding-system 'utf-8)
+;; (set-default-coding-systems 'utf-8)
+;; (setq default-buffer-file-coding-system 'utf-8)
 
 ;;字体设置
-(setq doom-font (font-spec :family "Iosevka" :weight 'medium :size 13.0))
+;; (setq doom-font (font-spec :family "Iosevka" :weight 'medium :size 13.0))
 
-  (defun my-cjk-font()
-    (dolist (charset '(kana han cjk-misc symbol bopomofo))
-      (set-fontset-font t charset (font-spec :family "Sarasa Mono SC"))))
+;;   (defun my-cjk-font()
+;;     (dolist (charset '(kana han cjk-misc symbol bopomofo))
+;;       (set-fontset-font t charset (font-spec :family "Sarasa Mono SC"))))
 
-  (add-hook 'after-setting-font-hook #'my-cjk-font)
+;; (add-hook 'after-setting-font-hook #'my-cjk-font)
+(setq doom-font (font-spec :family "LXGW WenKai Mono" :weight 'medium :size 13.0))
+
+(defun my-cjk-font()
+  (dolist (charset '(kana han cjk-misc symbol bopomofo))
+  (set-fontset-font t charset (font-spec :family "LXGW WenKai Mono"))))
+
+(add-hook 'after-setting-font-hook #'my-cjk-font)
 
 
 
@@ -168,3 +175,6 @@
 ;;       "C-c n c" #'org-roam-capture
 ;;       "C-c n j" #'org-roam-dailies-goto-today
       )
+
+;;shift select mode
+(setq shift-select-mode t)
