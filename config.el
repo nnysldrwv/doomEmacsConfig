@@ -29,6 +29,24 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
+;;字体设置
+;; (setq doom-font (font-spec :family "Iosevka" :weight 'medium :size 13.0))
+
+;;   (defun my-cjk-font()
+;;     (dolist (charset '(kana han cjk-misc symbol bopomofo))
+;;       (set-fontset-font t charset (font-spec :family "Sarasa Mono SC"))))
+;; (add-hook 'after-setting-font-hook #'my-cjk-font)
+;;
+
+(setq doom-font (font-spec :family "Iosevka" :weight 'medium :size 13.0))
+
+  (defun my-cjk-font()
+    (dolist (charset '(kana han cjk-misc symbol bopomofo))
+      (set-fontset-font t charset (font-spec :family "Sarasa Mono SC"))))
+
+  (add-hook 'after-setting-font-hook #'my-cjk-font)
+
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
@@ -40,8 +58,8 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
+(setq org-directory "~/org/")
 (after! org
-  (setq org-directory "~/org/")
   (setq org-todo-keywords '((sequence "TODO" "DOING" "DONE")))
   ;; org agenda设置
   (setq org-agenda-files '("~/org/src/"
@@ -63,6 +81,30 @@
                                      "......"
                                      "-----------------------------------------------------"
                                      )))
+
+  (setq org-capture-templates nil) ;;把doom原生的org-capture templates清除。
+
+  (add-to-list 'org-capture-templates
+             '("t" "Personal todo" entry
+               (file+olp "~/org/Notes.org" "Todolist")
+               "* TODO %^{待办事项} \n %u"))
+  (add-to-list 'org-capture-templates
+             '("T" "Work todo" entry
+               (file+olp "~/org/Work-Atom.org" "todolist")
+               "* TODO %^{待办事项} \n %u"))
+  (add-to-list 'org-capture-templates
+             '("d" "Diary" entry
+               (file "~/org/日记.org")
+               "* %<%Y>年%<%m>月%<%d>日 \n %^{日记内容}"))
+  (add-to-list 'org-capture-templates
+               '("n" "Personal Notes" entry
+                 (file+olp "~/org/notes.org" "Inbox")
+                 "* %^{heading} %t\n %?\n"))
+  (add-to-list 'org-capture-templates
+               '("w" "Work Notes" entry
+                 (file+olp "~/org/Work-Atom.org" "Inbox")
+                 "* %^{heading} %t\n %?\n"))
+
   )
 
 
@@ -120,26 +162,15 @@
       ;; ring-bell-function 'ignore
       )
 
-;;编码设置
+;; 编码设置
 ;; (prefer-coding-system 'utf-8)
 ;; (set-default-coding-systems 'utf-8)
 ;; (setq default-buffer-file-coding-system 'utf-8)
+;; (set-language-environment 'Chinese-GB) ; 设置语言环境为中文，可能需要根据你的系统调整
+;; (set-buffer-file-coding-system 'utf-8-unix) ; 建议使用 utf-8-unix
+;; (set-default-coding-systems 'utf-8-unix)
+;; (setq file-name-coding-system 'utf-8-unix)
 
-;;字体设置
-;; (setq doom-font (font-spec :family "Iosevka" :weight 'medium :size 13.0))
-
-;;   (defun my-cjk-font()
-;;     (dolist (charset '(kana han cjk-misc symbol bopomofo))
-;;       (set-fontset-font t charset (font-spec :family "Sarasa Mono SC"))))
-
-;; (add-hook 'after-setting-font-hook #'my-cjk-font)
-(setq doom-font (font-spec :family "LXGW WenKai Mono" :weight 'medium :size 13.0))
-
-(defun my-cjk-font()
-  (dolist (charset '(kana han cjk-misc symbol bopomofo))
-  (set-fontset-font t charset (font-spec :family "LXGW WenKai Mono"))))
-
-(add-hook 'after-setting-font-hook #'my-cjk-font)
 
 
 
@@ -180,13 +211,15 @@
 ;;;快捷键设置
 (map!
  ;;"C-x w" #'elfeed
-      "<f1>" #'+doom-dashboard/open
+ "<f1>" #'+doom-dashboard/open
 ;;       "C-c n l" #'org-roam-buffer-toggle
 ;;       "C-c n f" #'org-roam-node-find
 ;;       "C-c n g" #'org-roam-graph
 ;;       "C-c n i" #'org-roam-node-insert
 ;;       "C-c n c" #'org-roam-capture
 ;;       "C-c n j" #'org-roam-dailies-goto-today
+
+ :leader "x" #'org-capture
       )
 
 ;;shift select mode
