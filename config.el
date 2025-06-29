@@ -43,6 +43,26 @@
 (after! org
   (setq org-directory "~/org/")
   (setq org-todo-keywords '((sequence "TODO" "DOING" "DONE")))
+  ;; org agenda设置
+  (setq org-agenda-files '("~/org/src/"
+                           "~/org/notes.org"
+                           "~/org/Work-Atom.org"
+                           ))
+  ;;---------------------------------------------
+  ;;org-agenda-time-grid
+  ;;--------------------------------------------
+  (setq org-agenda-time-grid (quote ((daily today require-timed)
+                                     (300
+                                      600
+                                      900
+                                      1200
+                                      1500
+                                      1800
+                                      2100
+                                      2400)
+                                     "......"
+                                     "-----------------------------------------------------"
+                                     )))
   )
 
 
@@ -81,8 +101,6 @@
 ;; 通过Emacs-china 的仓库来安装包, 提升安装速度
 (setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
                          ("melpa" . "http://elpa.emacs-china.org/melpa/")))
-
-
 ;;elfeed配置
 ;;(after! elfeed
 ;;  (setq elfeed-search-filter "@1-month-ago +unread")
@@ -158,11 +176,6 @@
 ;; (setq initial-major-mode 'org-mode) ;; org!
 ;; (setq initial-scratch-message nil)
 
-;; Smooth mouse scrolling
-(setq mouse-wheel-scroll-amount '(2 ((shift) . 1))  ; scroll two lines at a time
-      mouse-wheel-progressive-speed nil             ; don't accelerate scrolling
-      mouse-wheel-follow-mouse t                    ; scroll window under mouse
-      scroll-step 1)
 
 ;;;快捷键设置
 (map!
@@ -178,3 +191,31 @@
 
 ;;shift select mode
 (setq shift-select-mode t)
+
+(after! calendar
+  ;;设置阳历节日和阴历节日、阴历生日
+  ;; 补充用法: holiday-float m w n 浮动阳历节日, m 月的第 n 个星期 w%7
+  ;; (setq general-holidays  '((holiday-fixed 1 1   "元旦")
+  ;;                          (holiday-fixed 2 14  "情人节")
+  ;;                          (holiday-fixed 4 1   "愚人节")
+  ;;                          (holiday-fixed 12 25 "圣诞节")
+  ;;                          (holiday-fixed 10 1  "国庆节")
+  ;;                          (holiday-float 5 0 2 "母亲节")   ;5月的第二个星期天
+  ;;                          (holiday-float 6 0 3 "父亲节")
+  ;;                          ))
+  ;; (setq local-holidays   '((holiday-chinese 1 15  "元宵节 (正月十五)")
+  ;;                        (holiday-chinese 5 5   "端午节 (五月初五)")
+  ;;                        (holiday-chinese 9 9   "重阳节 (九月初九)")
+  ;;                        (holiday-chinese 8 15  "中秋节 (八月十五)")
+  ;;                        ;; 生日
+  ;;                        (birthday-fixed 4 24  "我的生日(1988)")
+  ;;                        (holiday-chinese 9 21  "爸爸生日(1956)")
+  ;;                        (holiday-chinese 5 21  "妈妈生日(1957)")
+  ;;                        (holiday-chinese 2 29  "陈凡生日(1991)")           ;阴历生日
+
+  ;;                        (holiday-lunar 1 1 "春节" 0)
+  ;;                        ))
+  (setq calendar-mark-holidays-flag t)    ;让calendar自动标记出节假日的日期
+  (setq calendar-mark-diary-entries-flag t)    ;让calendar自动标记出记有待办事项的日期
+  (setq calendar-week-start-day 1)            ;设置星期一为每周的第一天
+)
