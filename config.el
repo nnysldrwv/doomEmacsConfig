@@ -230,7 +230,7 @@
 ;;shift select mode
 (setq shift-select-mode t)
 
-(after! calendar
+;; (after! org
   ;; 设置阳历节日和阴历节日、阴历生日
   ;; 补充用法: holiday-float m w n 浮动阳历节日, m 月的第 n 个星期 w%7
   (setq general-holidays  '((holiday-fixed 1 1   "元旦")
@@ -256,4 +256,4 @@
   (setq calendar-mark-holidays-flag t)    ;让calendar自动标记出节假日的日期
   (setq calendar-mark-diary-entries-flag t)    ;让calendar自动标记出记有待办事项的日期
   (setq calendar-week-start-day 1)            ;设置星期一为每周的第一天
-)
+;; )
