@@ -38,7 +38,7 @@
 ;; (add-hook 'after-setting-font-hook #'my-cjk-font)
 ;;
 
-(setq doom-font (font-spec :family "LXGW Wenkai Mono" :weight 'medium :size 13.0))
+(setq doom-font (font-spec :family "LXGW Wenkai Mono" :weight 'medium :size 14.0))
 
   (defun my-cjk-font()
     (dolist (charset '(kana han cjk-misc symbol bopomofo))
@@ -69,18 +69,18 @@
   ;;---------------------------------------------
   ;;org-agenda-time-grid
   ;;--------------------------------------------
-  (setq org-agenda-time-grid (quote ((daily today require-timed)
-                                     (300
-                                      600
-                                      900
-                                      1200
-                                      1500
-                                      1800
-                                      2100
-                                      2400)
-                                     "......"
-                                     "-----------------------------------------------------"
-                                     )))
+  ;; (setq org-agenda-time-grid (quote ((daily today require-timed)
+  ;;                                    (300
+  ;;                                     600
+  ;;                                     900
+  ;;                                     1200
+  ;;                                     1500
+  ;;                                     1800
+  ;;                                     2100
+  ;;                                     2400)
+  ;;                                    "......"
+                                     ;; "-----------------------------------------------------"
+                                     ;; )))
 
   ;;整合diary-file到org-agenda中的配置:
   (setq org-agenda-include-diary t)
@@ -91,15 +91,15 @@
 
   (add-to-list 'org-capture-templates
              '("t" "Personal todo" entry
-               (file+olp "~/org/Notes.org" "Todolist")
+               (file+olp "~/org/notes.org" "Todolist")
                "* TODO %^{待办事项} \n %u"))
   (add-to-list 'org-capture-templates
              '("T" "Work todo" entry
-               (file+olp "~/org/Work-Atom.org" "todolist")
+               (file+olp "~/org/work-Atom.org" "todolist")
                "* TODO %^{待办事项} \n %u"))
   (add-to-list 'org-capture-templates
              '("d" "Diary" entry
-               (file "~/org/日记.org")
+               (file "~/org/diary.org")
                "* %<%Y>年%<%m>月%<%d>日 \n %^{日记内容}"))
   (add-to-list 'org-capture-templates
                '("n" "Personal Notes" entry
@@ -107,10 +107,37 @@
                  "* %^{heading} %t\n %?\n"))
   (add-to-list 'org-capture-templates
                '("w" "Work Notes" entry
-                 (file+olp "~/org/Work-Atom.org" "Inbox")
+                 (file+olp "~/org/work-Atom.org" "Inbox")
                  "* %^{heading} %t\n %?\n"))
 
   )
+;; (after! org
+  ;; 设置阳历节日和阴历节日、阴历生日
+  ;; 补充用法: holiday-float m w n 浮动阳历节日, m 月的第 n 个星期 w%7
+  ;; (setq general-holidays  '((holiday-fixed 1 1   "元旦")
+  ;;                          (holiday-fixed 2 14  "情人节")
+  ;;                          (holiday-fixed 4 1   "愚人节")
+  ;;                          (holiday-fixed 12 25 "圣诞节")
+  ;;                          (holiday-fixed 10 1  "国庆节")
+  ;;                          (holiday-float 5 0 2 "母亲节")   ;5月的第二个星期天
+  ;;                          (holiday-float 6 0 3 "父亲节")
+  ;;                          ))
+  ;; (setq local-holidays   '((holiday-chinese 1 15  "元宵节 (正月十五)")
+  ;;                        (holiday-chinese 5 5   "端午节 (五月初五)")
+  ;;                        (holiday-chinese 9 9   "重阳节 (九月初九)")
+  ;;                        (holiday-chinese 8 15  "中秋节 (八月十五)")
+  ;;                        ;; 生日
+  ;;                        (birthday-fixed 4 24  "我的生日(1988)")
+  ;;                        (holiday-chinese 9 21  "爸爸生日(1956)")
+  ;;                        (holiday-chinese 5 21  "妈妈生日(1957)")
+  ;;                        (holiday-chinese 2 29  "陈凡生日(1991)")           ;阴历生日
+
+  ;;                        (holiday-lunar 1 1 "春节" 0)
+  ;;                        ))
+  ;; (setq calendar-mark-holidays-flag t)    ;让calendar自动标记出节假日的日期
+  ;; (setq calendar-mark-diary-entries-flag t)    ;让calendar自动标记出记有待办事项的日期
+  (setq calendar-week-start-day 1)            ;设置星期一为每周的第一天
+;; )
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
@@ -167,16 +194,6 @@
       ;; ring-bell-function 'ignore
       )
 
-;; 编码设置
-;; (prefer-coding-system 'utf-8)
-;; (set-default-coding-systems 'utf-8)
-;; (setq default-buffer-file-coding-system 'utf-8)
-;; (set-language-environment 'Chinese-GB) ; 设置语言环境为中文，可能需要根据你的系统调整
-;; (set-buffer-file-coding-system 'utf-8-unix) ; 建议使用 utf-8-unix
-;; (set-default-coding-systems 'utf-8-unix)
-;; (setq file-name-coding-system 'utf-8-unix)
-
-
 
 
 ;; 打开文件时, 光标自动定位到上次停留的位置
@@ -230,30 +247,20 @@
 ;;shift select mode
 (setq shift-select-mode t)
 
-;; (after! org
-  ;; 设置阳历节日和阴历节日、阴历生日
-  ;; 补充用法: holiday-float m w n 浮动阳历节日, m 月的第 n 个星期 w%7
-  ;; (setq general-holidays  '((holiday-fixed 1 1   "元旦")
-  ;;                          (holiday-fixed 2 14  "情人节")
-  ;;                          (holiday-fixed 4 1   "愚人节")
-  ;;                          (holiday-fixed 12 25 "圣诞节")
-  ;;                          (holiday-fixed 10 1  "国庆节")
-  ;;                          (holiday-float 5 0 2 "母亲节")   ;5月的第二个星期天
-  ;;                          (holiday-float 6 0 3 "父亲节")
-  ;;                          ))
-  ;; (setq local-holidays   '((holiday-chinese 1 15  "元宵节 (正月十五)")
-  ;;                        (holiday-chinese 5 5   "端午节 (五月初五)")
-  ;;                        (holiday-chinese 9 9   "重阳节 (九月初九)")
-  ;;                        (holiday-chinese 8 15  "中秋节 (八月十五)")
-  ;;                        ;; 生日
-  ;;                        (birthday-fixed 4 24  "我的生日(1988)")
-  ;;                        (holiday-chinese 9 21  "爸爸生日(1956)")
-  ;;                        (holiday-chinese 5 21  "妈妈生日(1957)")
-  ;;                        (holiday-chinese 2 29  "陈凡生日(1991)")           ;阴历生日
 
-  ;;                        (holiday-lunar 1 1 "春节" 0)
-  ;;                        ))
-  ;; (setq calendar-mark-holidays-flag t)    ;让calendar自动标记出节假日的日期
-  ;; (setq calendar-mark-diary-entries-flag t)    ;让calendar自动标记出记有待办事项的日期
-  (setq calendar-week-start-day 1)            ;设置星期一为每周的第一天
-;; )
+;;解决projectile-find-file搜索到的文件名里中文乱码的问题
+;;参考了https://emacs-china.org/t/windows-projectile-find-file-counsel-projectile-find-file/20579
+(after! projectile
+  (defun projectile-files-via-ext-command@decode-utf-8 (root command)
+    "Advice override `projectile-files-via-ext-command' to decode shell output."
+    (when (stringp command)
+      (let ((default-directory root))
+        (with-temp-buffer
+          (shell-command command t "*projectile-files-errors*")
+          (decode-coding-region (point-min) (point-max) 'utf-8) ;; ++
+          (let ((shell-output (buffer-substring (point-min) (point-max))))
+            (split-string (string-trim shell-output) "\0" t))))))
+
+  (advice-add 'projectile-files-via-ext-command
+              :override 'projectile-files-via-ext-command@decode-utf-8)
+  )
