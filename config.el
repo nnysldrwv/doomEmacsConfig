@@ -93,22 +93,25 @@
              '("t" "Personal todo" entry
                (file+olp "~/org/notes.org" "Todolist")
                "* TODO %^{待办事项} \n %u"))
-  (add-to-list 'org-capture-templates
-             '("T" "Work todo" entry
-               (file+olp "~/org/work-Atom.org" "todolist")
-               "* TODO %^{待办事项} \n %u"))
-  (add-to-list 'org-capture-templates
-             '("d" "Diary" entry
-               (file "~/org/diary.org")
-               "* %<%Y>年%<%m>月%<%d>日 \n %^{日记内容}"))
-  (add-to-list 'org-capture-templates
+   (add-to-list 'org-capture-templates
                '("n" "Personal Notes" entry
                  (file+olp "~/org/notes.org" "Inbox")
                  "* %^{heading} %t\n %?\n"))
-  (add-to-list 'org-capture-templates
-               '("w" "Work Notes" entry
-                 (file+olp "~/org/work-Atom.org" "Inbox")
-                 "* %^{heading} %t\n %?\n"))
+   (add-to-list 'org-capture-templates
+                '("d" "Diary" entry
+                  (file "~/org/diary.org")
+                  "* %<%Y>年%<%m>月%<%d>日 \n %^{日记内容}"))
+
+
+   (add-to-list 'org-capture-templates '("w" "Work"))
+   (add-to-list 'org-capture-templates
+                '("wn" "Work Notes" entry
+                  (file+olp "~/org/work-Atom.org" "Inbox")
+                  "* %^{heading} %t\n %?\n"))
+   (add-to-list 'org-capture-templates
+                '("wt" "Work todo" entry
+                  (file+olp "~/org/work-Atom.org" "todolist")
+                  "* TODO %^{待办事项} \n %u"))
 
   )
 ;; (after! org
