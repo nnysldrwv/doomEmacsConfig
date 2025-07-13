@@ -66,27 +66,13 @@
                            "~/org/notes.org"
                            "~/org/Work-Atom.org"
                            ))
-  ;;---------------------------------------------
-  ;;org-agenda-time-grid
-  ;;--------------------------------------------
-  ;; (setq org-agenda-time-grid (quote ((daily today require-timed)
-  ;;                                    (300
-  ;;                                     600
-  ;;                                     900
-  ;;                                     1200
-  ;;                                     1500
-  ;;                                     1800
-  ;;                                     2100
-  ;;                                     2400)
-  ;;                                    "......"
-                                     ;; "-----------------------------------------------------"
-                                     ;; )))
 
   ;;整合diary-file到org-agenda中的配置:
   (setq org-agenda-include-diary t)
   (setq org-agenda-diary-file "~/org/src/standard-diary")
   (setq diary-file "~/org/src/standard-diary")
 
+  ;;org capturep配置
   (setq org-capture-templates nil) ;;把doom原生的org-capture templates清除。
 
   (add-to-list 'org-capture-templates
@@ -113,7 +99,41 @@
                   (file+olp "~/org/work-Atom.org" "todolist")
                   "* TODO %^{待办事项} \n %u"))
 
+
   )
+
+
+   ;;org download配置
+(after! org-download
+;; https://hsingko.pages.dev/post/2021/12/23/org-download/
+  ;; (setq org-download-screenshot-method "flameshot gui --raw >%s")
+  (setq org-download-method 'directory)
+  (setq-default org-download-heading-lvl nil)
+  (setq-default org-download-image-dir ".images")
+  ;; (defun dummy-org-download-annotate-function (link)
+  ;;   "")
+  ;; (setq org-download-annotate-function
+  ;;       #'dummy-org-download-annotate-function)
+  (setq org-image-actual-width 600)
+  ;; 解决插入的图片不会自动作为图片显示的问题，自动添加file:前缀
+  ;; https://www.reddit.com/r/emacs/comments/145a3wk/orgdownload_doesnt_add_file_url_to_image_links/
+  (setq org-download-link-format "[[file:%s]]\n"        org-download-abbreviate-filename-function #'file-relative-name)
+  (setq org-download-link-format-function #'org-download-link-format-function-default)
+
+  )
+
+;; 归档已完成的任务
+;; https://linzhichu.github.io/computers/2018/02/28/org-agenda
+  (defun org-archive-done-tasks ()
+    (interactive)
+    (org-map-entries
+     (lambda ()
+       (org-archive-subtree)
+       (setq org-map-continue-from (outline-previous-heading)))
+     "/DONE" 'agenda))
+
+
+
 ;; (after! org
   ;; 设置阳历节日和阴历节日、阴历生日
   ;; 补充用法: holiday-float m w n 浮动阳历节日, m 月的第 n 个星期 w%7
