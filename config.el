@@ -50,7 +50,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-zenburn)
+;; (setq doom-theme 'doom-zenburn) ;;ok
+(setq doom-theme 'spacemacs-light)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -98,7 +99,10 @@
                 '("wt" "Work todo" entry
                   (file+olp "~/org/work-Atom.org" "todolist")
                   "* TODO %^{待办事项} \n %u"))
-
+;; Enable logging of done tasks, and log stuff into the LOGBOOK drawer by default
+;; https://zzamboni.org/post/my-doom-emacs-configuration-with-commentary/
+  (setq org-log-done t)
+  (setq org-log-into-drawer t)
 
   )
 
@@ -287,3 +291,9 @@
   (advice-add 'projectile-files-via-ext-command
               :override 'projectile-files-via-ext-command@decode-utf-8)
   )
+
+
+
+;;自动保存、备份开启
+(setq auto-save-default t
+      make-backup-files t)
