@@ -73,7 +73,7 @@
   (setq org-agenda-diary-file "~/org/src/standard-diary")
   (setq diary-file "~/org/src/standard-diary")
 
-  ;;org capturep配置
+  ;;org capture配置
   (setq org-capture-templates nil) ;;把doom原生的org-capture templates清除。
 
   (add-to-list 'org-capture-templates
@@ -232,21 +232,21 @@
 
 ;; 保存会话窗口
 ;; Automatically save and restore sessions
-(setq desktop-dirname             "~/.emacs.d/desktop/"
-      desktop-base-file-name      "emacs.desktop"
-      desktop-base-lock-name      "lock"
-      desktop-path                (list desktop-dirname)
-      desktop-save                t
-      desktop-files-not-to-save   "^$" ;reload tramp paths
-      desktop-load-locked-desktop nil
-      desktop-auto-save-timeout   30)
-(desktop-save-mode 1)
+;; (setq desktop-dirname             "~/.emacs.d/desktop/"
+;;       desktop-base-file-name      "emacs.desktop"
+;;       desktop-base-lock-name      "lock"
+;;       desktop-path                (list desktop-dirname)
+;;       desktop-save                t
+;;       desktop-files-not-to-save   "^$" ;reload tramp paths
+;;       desktop-load-locked-desktop nil
+;;       desktop-auto-save-timeout   30)
+;; (desktop-save-mode 1)
 
 ;; 指定启动时的窗口位置和大小
-;;(setq initial-frame-alist '((top . 45)
-;;                             (left . 1200)
-;;                             (width . 150)
-;;                             (height . 45)))
+(setq initial-frame-alist '((top . 45)
+                            (left . 1200)
+                            (width . 150)
+                            (height . 45)))
 
 (setq frame-title-format "Sean")
 ;; (menu-bar-mode -1) ;; minimal chrome
