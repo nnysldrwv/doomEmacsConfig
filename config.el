@@ -30,21 +30,21 @@
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
 ;;字体设置
-;; (setq doom-font (font-spec :family "Iosevka" :weight 'medium :size 13.0))
-
-;;   (defun my-cjk-font()
-;;     (dolist (charset '(kana han cjk-misc symbol bopomofo))
-;;       (set-fontset-font t charset (font-spec :family "Sarasa Mono SC"))))
-;; (add-hook 'after-setting-font-hook #'my-cjk-font)
-;;
-
-(setq doom-font (font-spec :family "LXGW Wenkai Mono" :weight 'medium :size 14.0))
+(setq doom-font (font-spec :family "Fira Code" :weight 'semi-light :size 13.0))
 
   (defun my-cjk-font()
     (dolist (charset '(kana han cjk-misc symbol bopomofo))
-      (set-fontset-font t charset (font-spec :family "LXGW Wenkai Mono"))))
+      (set-fontset-font t charset (font-spec :family "Sarasa Term SC Nerd"))))
+(add-hook 'after-setting-font-hook #'my-cjk-font)
+;;
 
-  (add-hook 'after-setting-font-hook #'my-cjk-font)
+;; (setq doom-font (font-spec :family "LXGW Wenkai Mono" :weight 'medium :size 14.0))
+
+;;   (defun my-cjk-font()
+;;     (dolist (charset '(kana han cjk-misc symbol bopomofo))
+;;       (set-fontset-font t charset (font-spec :family "LXGW Wenkai Mono"))))
+
+;;   (add-hook 'after-setting-font-hook #'my-cjk-font)
 
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
