@@ -5,14 +5,14 @@
 ;; ============================
 
 ;; 用户信息（可选）
-;; (setq user-full-name "Sean Yuan"
-;;       user-mail-address "yuan_xiang@outlook.com")
+(setq user-full-name "Sean Yuan"
+      user-mail-address "yuan_xiang@outlook.com")
 
 ;; ============================
 ;; Doom 字体配置（等宽 + 中文 + Emoji + all-the-icons）
 ;; ============================
 
-(defvar my-font-size 22
+(defvar my-font-size 24
   "全局字体大小，英文/中文基准字号。调整这个数字即可放大或缩小字体。")
 
 ;; 英文 & 中文统一字体
@@ -52,8 +52,14 @@
 ;; ============================
 ;; 主题 & 行号
 ;; ============================
-(setq doom-theme 'spacemacs-light)
-(setq display-line-numbers-type t)
+;; (setq doom-theme 'spacemacs-light)
+;; (setq doom-theme 'doom-one-light)
+;; (setq doom-theme 'leuven)
+;; (setq display-line-numbers-type t)
+;; 加载主题
+;; (load-theme 'leuven t t) ;; 加载浅色主题
+;; (load-theme 'doom-one t t)  ;; 加载深色主题
+(setq doom-theme 'doom-one)  ;; 加载深色主题
 
 ;; ============================
 ;; Org-mode 配置
@@ -67,10 +73,12 @@
   ;; Agenda 设置
   (setq org-agenda-files '("~/org/src/"
                            "~/org/notes.org"
-                           "~/org/Work-Atom.org"))
-  (setq org-agenda-include-diary t)
-  (setq org-agenda-diary-file "~/org/src/standard-diary")
-  (setq diary-file "~/org/src/standard-diary")
+                           "~/org/Work-Atom.org"
+                           "~/org/src/calendar-events.org"))  ;; 添加农历节日文件
+  (setq org-agenda-span 'month)  ;; 设置 agenda 默认显示范围为一个月
+  ;; 农历节日和生日配置
+  (setq calendar-chinese-celestial-stem ["甲" "乙" "丙" "丁" "戊" "己" "庚" "辛" "壬" "癸"])
+  (setq calendar-chinese-terrestrial-branch ["子" "丑" "寅" "卯" "辰" "巳" "午" "未" "申" "酉" "戌" "亥"])
 
   ;; Capture 模板
   (setq org-capture-templates nil)
@@ -84,7 +92,7 @@
                  "* %^{heading} %t\n %?\n"))
   (add-to-list 'org-capture-templates
                '("d" "Diary" entry
-                 (file "~/org/diary.org")
+                 (file "~/org/diary.org.gpg")
                  "* %<%Y>年%<%m>月%<%d>日 \n %^{日记内容}"))
   (add-to-list 'org-capture-templates '("w" "Work"))
   (add-to-list 'org-capture-templates
@@ -95,6 +103,11 @@
                '("wt" "Work todo" entry
                  (file+olp "~/org/work-Atom.org" "todolist")
                  "* TODO %^{待办事项} \n %u"))
+  ;; 添加农历生日捕获模板
+  (add-to-list 'org-capture-templates
+               '("b" "Chinese Birthday" entry
+                 (file+headline "~/org/src/calendar-events.org" "农历生日")
+                 "** %^{姓名}生日\n<%%(diary-chinese-date %^{农历月} %^{农历日})>"))
 
   ;; 日志设置
   (setq org-log-done t
@@ -121,13 +134,21 @@
         :desc "Org download screenshot" "d s" #'org-download-screenshot))
 
 ;; 归档已完成任务
+;; (defun org-archive-done-tasks ()
+;;   (interactive)
+;;   (org-map-entries
+;;    (lambda ()
+;;      (org-archive-subtree)
+;;      (setq org-map-continue-from (outline-previous-heading)))
+;;    "/DONE" 'agenda))
 (defun org-archive-done-tasks ()
   (interactive)
-  (org-map-entries
-   (lambda ()
-     (org-archive-subtree)
-     (setq org-map-continue-from (outline-previous-heading)))
-   "/DONE" 'agenda))
+  (let ((org-archive-location (concat "~/org/archive/%s_archive.org::* Archived Tasks")))
+    (org-map-entries
+     (lambda ()
+       (org-archive-subtree)
+       (setq org-map-continue-from (outline-previous-heading)))
+     "/DONE" 'agenda)))
 
 ;; Calendar 设置
 (setq calendar-week-start-day 1)
@@ -196,3 +217,22 @@
 ;; ============================
 (setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
                          ("melpa" . "http://elpa.emacs-china.org/melpa/")))
+
+
+;; 设置默认加密密钥（使用你生成GPG密钥时用的邮箱）
+;; (setq epa-file-encrypt-to "yuanxiang424@email.com")
+(setq epa-file-encrypt-to "yuanxiang424@gmail.com"
+      epa-file-cache-passphrase-for-symmetric-encryption t)
+
+;; 可选：设置加密算法（推荐aes256）
+;; (setq epa-encrypt-algorithm 'aes256)
+
+;; 可选：设置缓存密码时间（秒）
+;; (setq epa-file-cache-passphrase-for-symmetric-encryption 3600)
+
+
+
+;; Treemacs配置
+(map! :leader
+      "0" #'treemacs-select-window
+      "f t" #'treemacs)

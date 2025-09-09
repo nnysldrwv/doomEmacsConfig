@@ -49,3 +49,5 @@
 ;; (unpin! t)
 
 (package! spacemacs-theme)
+(package! cal-china-x)
+(package! org-chinese-utils)
