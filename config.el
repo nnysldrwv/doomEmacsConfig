@@ -12,9 +12,16 @@
 ;; Doom 字体配置（等宽 + 中文 + Emoji + all-the-icons）
 ;; ============================
 
-(defvar my-font-size 24
-  "全局字体大小，英文/中文基准字号。调整这个数字即可放大或缩小字体。")
-
+;; 根据系统类型设置不同字号
+(cond
+ ((eq system-type 'darwin)  ;; macOS
+  (defvar my-font-size 18 "macOS 默认字体大小"))
+ ((eq system-type 'gnu/linux) ;; Linux
+  (defvar my-font-size 22 "Linux 默认字体大小"))
+ ((eq system-type 'windows-nt) ;; Windows
+  (defvar my-font-size 24 "Windows 默认字体大小"))
+ (t ;; 其他未知系统
+  (defvar my-font-size 20 "默认字体大小")))
 ;; 英文 & 中文统一字体
 (setq doom-font (font-spec :family "Sarasa Mono SC" :size my-font-size :weight 'semi-bold)
       doom-variable-pitch-font doom-font)
@@ -84,20 +91,20 @@
   (setq org-capture-templates nil)
   (add-to-list 'org-capture-templates
                '("t" "Personal todo" entry
-                 (file+olp "~/org/notes.org" "Todolist")
+                 (file+olp "~/org/notes.org" "todolist")
                  "* TODO %^{待办事项} \n %u"))
   (add-to-list 'org-capture-templates
                '("n" "Personal Notes" entry
-                 (file+olp "~/org/notes.org" "Inbox")
+                 (file+olp "~/org/notes.org" "inbox")
                  "* %^{heading} %t\n %?\n"))
   (add-to-list 'org-capture-templates
                '("d" "Diary" entry
                  (file "~/org/diary.org.gpg")
                  "* %<%Y>年%<%m>月%<%d>日 \n %^{日记内容}"))
-  (add-to-list 'org-capture-templates '("w" "Work"))
+  (add-to-list 'org-capture-templates '("w" "work"))
   (add-to-list 'org-capture-templates
                '("wn" "Work Notes" entry
-                 (file+olp "~/org/work-Atom.org" "Inbox")
+                 (file+olp "~/org/work-Atom.org" "inbox")
                  "* %^{heading} %t\n %?\n"))
   (add-to-list 'org-capture-templates
                '("wt" "Work todo" entry
@@ -165,6 +172,7 @@
                             (left . 1200)
                             (width . 150)
                             (height . 45)))
+
 (setq frame-title-format "Sean")
 
 ;; ============================
