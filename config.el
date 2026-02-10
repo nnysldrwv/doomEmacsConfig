@@ -19,17 +19,17 @@
  ((eq system-type 'gnu/linux) ;; Linux
   (defvar my-font-size 22 "Linux 默认字体大小"))
  ((eq system-type 'windows-nt) ;; Windows
-  (defvar my-font-size 24 "Windows 默认字体大小"))
+  (defvar my-font-size 18 "Windows 默认字体大小"))
  (t ;; 其他未知系统
   (defvar my-font-size 20 "默认字体大小")))
 ;; 英文 & 中文统一字体
-(setq doom-font (font-spec :family "Sarasa Mono SC" :size my-font-size :weight 'semi-bold)
+(setq doom-font (font-spec :family "Sarasa Mono SC" :size my-font-size)
       doom-variable-pitch-font doom-font)
 
 ;; 中文等宽字体
 (dolist (charset '(kana han cjk-misc bopomofo))
   (set-fontset-font t charset
-                    (font-spec :family "Sarasa Mono SC" :size my-font-size :weight 'semi-bold)
+                    (font-spec :family "Sarasa Mono SC" :size my-font-size)
                     nil 'prepend))
 
 ;; Emoji 字体
@@ -66,8 +66,11 @@
 ;; 加载主题
 ;; (load-theme 'leuven t t) ;; 加载浅色主题
 ;; (load-theme 'doom-one t t)  ;; 加载深色主题
-(setq doom-theme 'doom-one)  ;; 加载深色主题
+;; (setq doom-theme 'doom-one)  ;; 加载深色主题
+;; (setq doom-theme 'doom-ayu-light)
+;; (setq doom-theme 'doom-solarized-light)
 
+(setq doom-theme 'tsdh-light)
 ;; ============================
 ;; Org-mode 配置
 ;; ============================
@@ -104,11 +107,11 @@
   (add-to-list 'org-capture-templates '("w" "work"))
   (add-to-list 'org-capture-templates
                '("wn" "Work Notes" entry
-                 (file+olp "~/org/work-Atom.org" "inbox")
+                 (file+olp "~/org/work.org" "inbox")
                  "* %^{heading} %t\n %?\n"))
   (add-to-list 'org-capture-templates
                '("wt" "Work todo" entry
-                 (file+olp "~/org/work-Atom.org" "todolist")
+                 (file+olp "~/org/work.org" "todolist")
                  "* TODO %^{待办事项} \n %u"))
   ;; 添加农历生日捕获模板
   (add-to-list 'org-capture-templates
@@ -141,22 +144,28 @@
         :desc "Org download screenshot" "d s" #'org-download-screenshot))
 
 ;; 归档已完成任务
-;; (defun org-archive-done-tasks ()
-;;   (interactive)
-;;   (org-map-entries
-;;    (lambda ()
-;;      (org-archive-subtree)
-;;      (setq org-map-continue-from (outline-previous-heading)))
-;;    "/DONE" 'agenda))
 (defun org-archive-done-tasks ()
+  "Archive all DONE tasks in `org-agenda-files`."
   (interactive)
-  (let ((org-archive-location (concat "~/org/archive/%s_archive.org::* Archived Tasks")))
+  (let ((org-archive-location "~/org/archive/%s_archive.org::"))
     (org-map-entries
      (lambda ()
        (org-archive-subtree)
        (setq org-map-continue-from (outline-previous-heading)))
-     "/DONE" 'agenda)))
-
+     "+TODO=\"DONE\"" 'agenda)))
+(defun my/org-clean-unused-attachments ()
+  ;; "清理当前文件中未引用的附件。"
+  (interactive)
+  (require 'org-attach)
+  (let* ((attach-dir (expand-file-name org-attach-id-dir))
+         (used-ids (org-map-entries #'org-id-get))
+         (all-ids (directory-files attach-dir nil "^[^.]" t)))
+    (dolist (id all-ids)
+      (unless (member id used-ids)
+        (let ((dir (expand-file-name id attach-dir)))
+          (when (and (file-directory-p dir)
+                     (y-or-n-p (format "删除未引用附件目录 %s ?" dir)))
+            (delete-directory dir t)))))))
 ;; Calendar 设置
 (setq calendar-week-start-day 1)
 
@@ -244,3 +253,6 @@
 (map! :leader
       "0" #'treemacs-select-window
       "f t" #'treemacs)
+(let ((lfile (concat doom-local-dir "straight/repos/transient/lisp/transient.el")))
+  (if (file-exists-p lfile)
+      (load lfile)))
